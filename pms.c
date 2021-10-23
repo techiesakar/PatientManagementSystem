@@ -88,8 +88,23 @@ void addRecord(void) {
 	title(); // calls title and shows hospital's name
 	char ans;
 	FILE *fp; // taking fp file pointer
-	fp = fopen("PatientsRecord.dat","a"); // open file in append mode
+	fp = fopen("PatientsRecord.dat","a+"); // open file in append mode
 	printf("\n\n\t\t\t!!!!!!!!!! Add Patients Record !!!!!!!!!!\n");
+	int patientID;
+	int count = 0; // Patient's id
+
+// Loop to auto assign patient ID (Unique)
+	while (fscanf(fp, "%i %s %s %c %i %s %s %s %s\n", &p.id, p.fname, p.lname, &p.gender, &p.age, p.address, p.contactNo, p.problem, p.doctor)!=EOF) {
+		count++;
+		if (count!=0) {
+			patientID = p.id+1;
+		} else {
+			patientID = 0;
+		}
+	}
+	p.id = patientID;
+	// Auto assign patient ID ends
+	
 	addRecordItem(); // Add patient's all data
 	fprintf(fp, "%i %s %s %c %i %s %s %s %s\n", p.id, p.fname, p.lname, p.gender, p.age, p.address, p.contactNo, p.problem, p.doctor); // Print in file
 	printf("\n\n\t\t\t.....Information Record Successful ...");
@@ -105,9 +120,6 @@ sd:
 	}
 } // Add Record Ends
 void addRecordItem(void) { // This is placed inside addRecord() to record patient's available data
-	printf("\n\t\t\tID: ");
-	fflush(stdin);
-	scanf("%i", &p.id); // Patient's id
 A:
 	fflush(stdin);
 	printf("\n\n\t\t\tFirst Name: ");
@@ -201,7 +213,7 @@ H:
 		printf("\n\n\t\t\tOops!! Doctor name must only contain upto 30 alphabets");
 		goto H; // If validation failed, repeat again (Goto H)
 	}
-} // 
+} //
 void ex_it(void) {
 	// function to clear everything in console and call welcomescreen and dashboard
 	system("cls");
@@ -254,6 +266,7 @@ void recordTableHead(void) {
 } // recordTableHead ends
 /* ********************* View Records ************************ */
 void viewRecord(void) {
+	int totalMember;
 	int row = 13; // This will assign value to argument below to listLoopRow(Row)
 	system("cls"); // Clear the whole screen
 	FILE *fp; // Opening file pointer fp
