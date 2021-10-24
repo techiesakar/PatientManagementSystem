@@ -401,7 +401,7 @@ void delRecord() {
 	printf("\n\t\t\t\t\t Search For Patient's ID : ");
 	scanf("%i", &searchID);
 	fflush(stdin);
-	printf("\n\n\t\t\t\t\t Enter age again to confirm : ");
+	printf("\n\n\t\t\t\t\t Enter ID again to confirm : ");
 
 	scanf("%i", &confirmID); // To confirm with search ID entered before
 	if(searchID==confirmID) {
