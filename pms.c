@@ -104,7 +104,6 @@ void addRecord(void) {
 	}
 	p.id = patientID;
 	// Auto assign patient ID ends
-	
 	addRecordItem(); // Add patient's all data
 	fprintf(fp, "%i %s %s %c %i %s %s %s %s\n", p.id, p.fname, p.lname, p.gender, p.age, p.address, p.contactNo, p.problem, p.doctor); // Print in file
 	printf("\n\n\t\t\t.....Information Record Successful ...");
@@ -112,7 +111,8 @@ void addRecord(void) {
 sd:
 	getch(); // hold screen
 	printf("\n\n\t\t\tDo you want to add more [Y/N]?? "); // Asking user, if they want to add more record
-	scanf(" %c", &ans);
+	fflush(stdin);
+	scanf("%c", &ans);
 	if (toupper(ans)=='Y')
 		addRecord(); // If user wants, again calling addRecord();
 	else if (toupper(ans)=='N') {
@@ -130,6 +130,7 @@ A:
 		goto A; // If not meet requirement, process repeat again (Goto A)
 	}
 B:
+	fflush(stdin);
 	printf("\n\n\t\t\tLast Name: ");
 	scanf("%s", p.lname); // For last name
 	p.lname[0]=toupper(p.lname[0]);
@@ -138,6 +139,7 @@ B:
 		goto B; // If not meet requirement, process repeat again (Goto B)
 	}
 C:
+	fflush(stdin);
 	printf("\n\t\t\tGender[M|F]:");
 	scanf(" %c", &p.gender); // For Gender
 	if(toupper(p.gender)=='M'|| toupper(p.gender)=='F') // change input string to uppercase
@@ -150,10 +152,12 @@ C:
 	}
 	/* ********************* Age ************************ */
 D:
+	fflush(stdin);
 	printf("\n\t\t\tAge: ");
 	scanf(" %i", &p.age);
 	/* ********************* Address ************************ */
 E:
+	fflush(stdin);
 	printf("\n\t\t\tAddress: ");
 	scanf("%s", p.address);
 	p.address[0]=toupper(p.address[0]); // making first letter uppercase
@@ -162,6 +166,7 @@ E:
 		goto E; // if condition not meet, repeat process again (Goto E)
 	}
 F:
+	fflush(stdin);
 	printf("\n\t\t\tPhone Number: ");
 	scanf("%s", p.contactNo);
 	if (strlen(p.contactNo)>10||strlen(p.contactNo)!=10) { // Phone number must be exact of 10 character
@@ -184,6 +189,7 @@ F:
 		}
 	}
 G:
+	fflush(stdin);
 	printf("\n\t\t\tProblem: ");
 	scanf("%s", p.problem);
 	p.problem[0]= toupper(p.problem[0]); // making first letter uppercase
@@ -206,6 +212,7 @@ G:
 		}
 	}
 H:
+	fflush(stdin);
 	printf("\n\t\t\tPrescribed Doctor: ");
 	scanf("%s", p.doctor);
 	p.doctor[0]=toupper(p.doctor[0]); // making first letter uppercase
@@ -241,7 +248,7 @@ int listLoopRow(int row) {
 	gotoxy(80, row);
 	printf("%s", p.problem);
 	gotoxy(95, row);
-	printf("%s", p.doctor);
+	printf("Dr. %s", p.doctor);
 } // listLoopRow ends
 void recordTableHead(void) {
 	// This is used before while loop, to print the table heading
